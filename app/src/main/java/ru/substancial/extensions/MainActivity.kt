@@ -10,10 +10,15 @@ import android.text.style.StyleSpan
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.substancial.extensions.utils.setPaddingOptionally
 import ru.substancial.extensions.utils.span
+import ru.substancial.extensions.utils.view
 
 class MainActivity : AppCompatActivity() {
     
@@ -58,6 +63,30 @@ class MainActivity : AppCompatActivity() {
 
         val sp = getSharedPreferences("sss", Context.MODE_PRIVATE)
 
+        sp.edit()
+            .putLong("some_pref", 3L)
+            .apply()
+
+        sp.edit {
+            putLong("some_pref", 3L)
+        }
+
+        supportFragmentManager.beginTransaction()
+            .add(Fragment(), "TAG")
+            .commit()
+
+        supportFragmentManager.beginTransaction {
+            add(Fragment(), "TAG")
+        }
+
+        view().isVisible = true
+        view().isVisible = false
 
     }
+}
+
+fun FragmentManager.beginTransaction(f: FragmentTransaction.() -> Unit) {
+    val tr = beginTransaction()
+    tr.f()
+    tr.commit()
 }

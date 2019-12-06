@@ -9,7 +9,7 @@ data class Email(
 fun Email.fullAddress(): String =
     "${this.identifier}@$domain.$topDomain"
 
-val fullAddress = Email::fullAddress
+val fullAddress: Email.() -> String = Email::fullAddress
 
 fun sampleRec() {
 
@@ -17,5 +17,6 @@ fun sampleRec() {
 
     email.fullAddress()
     fullAddress(email)
+    email.fullAddress()
 
 }
