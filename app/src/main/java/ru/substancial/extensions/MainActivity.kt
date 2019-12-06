@@ -1,10 +1,12 @@
 package ru.substancial.extensions
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
@@ -21,7 +23,21 @@ class MainActivity : AppCompatActivity() {
 
         some_text_view.text =
             SpannableStringBuilder()
-                .append("sdsad", ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)), SpannableString.SPAN_INCLUSIVE_EXCLUSIVE)
+                .append(
+                    "This string will be red",
+                    ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)),
+                    SpannableString.SPAN_INCLUSIVE_EXCLUSIVE
+                ).append(
+                    " "
+                ).append(
+                    "This string will be sad :^("
+                ).append(
+                    " "
+                ).append(
+                    "This string will be italic",
+                    StyleSpan(Typeface.ITALIC),
+                    SpannableString.SPAN_INCLUSIVE_EXCLUSIVE
+                )
 
         some_text_view.text = span {
             color("This string will be red!", R.color.red)
